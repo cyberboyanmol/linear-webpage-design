@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "./container";
 import Link from "next/link";
 import { Logo } from "./icons/logo";
@@ -9,8 +9,26 @@ import classNames from "classnames";
 
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    if (html) {
+      html.classList.toggle("overflow-hidden", menuIsOpen);
+    }
+  }, [menuIsOpen]);
+
+  useEffect(() => {
+    const closeMenuIsOpen = () => setMenuIsOpen(false);
+    window.addEventListener("resize", closeMenuIsOpen);
+    window.addEventListener("orientationchange", closeMenuIsOpen);
+    return () => {
+      window.removeEventListener("resize", closeMenuIsOpen);
+      window.removeEventListener("orientationchange", closeMenuIsOpen);
+    };
+  }, [setMenuIsOpen]);
+
   return (
-    <header className="fixed top-0 left-0 w-full backdrop-blur-[12px] ">
+    <header className="fixed z-10 top-0 left-0 w-full backdrop-blur-[12px] ">
       <Container className="flex h-navbar-height border-b border-transparent-white ">
         <Link href={"/"} className="flex items-center font-medium text-md">
           <Logo className="w-[1.8rem] h-[1.8rem] mr-2" />

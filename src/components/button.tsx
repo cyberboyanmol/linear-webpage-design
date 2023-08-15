@@ -1,19 +1,34 @@
 import Link from "next/link";
-import React from "react";
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import { cva, VariantProps } from "class-variance-authority";
-interface ButtonProps extends VariantProps<typeof buttonVariantClasses> {
+import classNames from "classnames";
+interface ButtonBaseProps extends VariantProps<typeof buttonVariantClasses> {
   children: React.ReactNode;
-  href: string;
 }
 
+interface ButtonAsAnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+}
+interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  href?: never;
+}
+
+type ButtonProps = ButtonBaseProps &
+  (ButtonAsAnchorProps | ButtonAsButtonProps);
+
 const buttonVariantClasses = cva(
-  "relative rounded-full inline-flex items-center ",
+  "relative rounded-full inline-flex items-center",
   {
     variants: {
       variant: {
-        primary: "bg-primary-gradient hover:text-shadow  hover:shadow-pimary",
-        secondary: "",
-        tertiary: "",
+        primary: [
+          "bg-primary-gradient hover:text-shadow hover:shadow-primary transition-[shadow,text-shadow]",
+          "[&_.highlight]:ml-2",
+        ],
+        secondary: [
+          "text-off-white bg-white bg-opacity-10 border border-transparent-white backdrop-filter-[12px] hover:bg-opacity-20 transition-colors ease-in",
+          "[&_.highlight]:bg-transparent-white [&_.highlight]:rounded-full [&_.highlight]:px-2 [&_.highlight:last-child]:ml-2 [&_.highlight:last-child]:-mr-2 [&_.highlight:first-child]:-ml-2 [&_.highlight:first-child]:mr-2",
+        ],
       },
       size: {
         small: "text-xs px-3 h-7",
@@ -27,12 +42,33 @@ const buttonVariantClasses = cva(
     },
   }
 );
+export const Highlight = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => <span className={classNames("highlight", className)}>{children}</span>;
 
-const Button = ({ children, href, variant, size }: ButtonProps) => {
+const Button = ({ children, variant, size, ...props }: ButtonProps) => {
+  const classes = buttonVariantClasses({
+    variant,
+    size,
+    className: props.className,
+  });
+
+  if ("href" in props && props.href !== undefined) {
+    return (
+      <Link {...props} className={classes}>
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <Link href={"/"} className={buttonVariantClasses({ variant, size })}>
+    <Button {...props} className={classes}>
       {children}
-    </Link>
+    </Button>
   );
 };
 

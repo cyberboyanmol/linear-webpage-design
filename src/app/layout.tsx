@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div>
           <Header />
-          <main className=" pt-navbar-height ">{children}</main>
+          <main className="bg-page-gradient pt-navbar-height ">{children}</main>
           <Footer />
         </div>
       </body>
