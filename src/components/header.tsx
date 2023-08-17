@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Container from "./container";
 import Link from "next/link";
 import { Logo } from "./icons/logo";
-import Button from "./button";
+import Button from "./Button";
 import { HamburgerIcon } from "./icons/humbuger";
 import classNames from "classnames";
 

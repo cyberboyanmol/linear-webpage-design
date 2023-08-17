@@ -2,10 +2,10 @@ import Link from "next/link";
 import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import { cva, VariantProps } from "class-variance-authority";
 import classNames from "classnames";
-interface ButtonBaseProps extends VariantProps<typeof buttonVariantClasses> {
-  children: React.ReactNode;
-}
 
+type ButtonBaseProps = VariantProps<typeof buttonVariantClasses> & {
+  children: React.ReactNode;
+};
 interface ButtonAsAnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
 }
@@ -66,9 +66,9 @@ const Button = ({ children, variant, size, ...props }: ButtonProps) => {
   }
 
   return (
-    <Button {...props} className={classes}>
+    <button {...props} className={classes}>
       {children}
-    </Button>
+    </button>
   );
 };
 

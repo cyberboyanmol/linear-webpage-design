@@ -16,7 +16,7 @@ const randomNumberBetween = (min: number, max: number) => {
 import { useInView } from "react-intersection-observer";
 const HeroImage = () => {
   const { ref, inView } = useInView({
-    threshold: 0.6,
+    threshold: 0.7,
     triggerOnce: true,
   });
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -52,11 +52,11 @@ const HeroImage = () => {
   }, [inView, setLines]);
 
   return (
-    <div ref={ref} className="mt-[12.8rem] [perspective:2000px]">
+    <div ref={ref} className="mt-[12.8rem]  w-full [perspective:2000px]">
       <div
         className={classNames(
-          "relative rounded-2xl border border-transparent-white bg-white bg-opacity-[0.01] bg-hero-gradient",
-          inView ? "animate-image-rotate" : "[transform:rotateX(50deg)]   ",
+          "relative w-full rounded-2xl border border-transparent-white bg-white bg-opacity-[0.01] bg-hero-gradient",
+          inView ? "animate-image-rotate" : "[transform:rotateX(25deg)]   ",
           "before:absolute before:top-0 before:left-0 before:h-full before:w-full before:bg-hero-glow before:opacity-0 before:[filter:blur(120px)]",
           inView && "before:animate-image-glow"
         )}
@@ -77,9 +77,9 @@ const HeroImage = () => {
               className={classNames(
                 "absolute top-0 block   bg-glow-lines",
                 line.direction === "to left" &&
-                  `left-0 h-[1px] w-[calc(var(--size)*0.5rem)] animate-glow-line-horizontal md:w-[calc(var(--size)*1rem)]`,
+                  `left-0 h-[1px] w-[calc(var(--size)*0.3rem)] animate-glow-line-horizontal md:w-[calc(var(--size)*1rem)]`,
                 line.direction === "to top" &&
-                  `right-0 h-[calc(var(--size)*0.5rem)] w-[1px] animate-glow-line-vertical md:h-[calc(var(--size)*1rem)]`
+                  `right-0 h-[calc(var(--size)*0.3rem)] w-[1px] animate-glow-line-vertical md:h-[calc(var(--size)*1rem)]`
               )}
             />
           ))}
@@ -103,7 +103,7 @@ const HeroImage = () => {
 
         <img
           className={classNames(
-            "relative z-10 transition-opacity rounded-2xl delay-[680ms]",
+            "relative z-10  transition-opacity rounded-2xl delay-[680ms]",
             inView ? "opacity-100" : "opacity-0"
           )}
           src="/image/hero.webp"
