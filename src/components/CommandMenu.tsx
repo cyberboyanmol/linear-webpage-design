@@ -139,7 +139,7 @@ export const CommandMenu = () => {
                   ev.stopPropagation();
                 }
               }}
-              className="command-menu-button flex h-[4.6rem] w-full items-center gap-3 px-5 first:bg-white/[0.15] hover:bg-white/[0.05]"
+              className="command-menu-button flex h-[4.6rem]   w-full items-center gap-3 px-5 first:bg-white/[0.15] first:hover:bg-white/[0.15] hover:bg-white/[0.05]"
             >
               <Icon />
               {label}

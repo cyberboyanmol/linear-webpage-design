@@ -9,7 +9,7 @@ import { StarsIllustration } from "@/components/illustrations/star";
 import classNames from "classnames";
 import HomePageHero from "@/components/sections/homepage-hero";
 import { UnlikeAnyTool } from "@/components/sections/unlike-any-tool";
-import { Chronical } from "@/components/illustrations/chronical";
+import { EnjoyIssueTracking } from "@/components/sections/issuetracking";
 
 const HomePage = () => {
   return (
@@ -33,7 +33,8 @@ const HomePage = () => {
         <StarsIllustration />
       </div>
 
-      <UnlikeAnyTool />  
+      <UnlikeAnyTool />
+      <EnjoyIssueTracking />
     </>
   );
 };
